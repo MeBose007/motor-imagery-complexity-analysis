@@ -7,7 +7,7 @@
 | Fig. S3 | `figS3_alpha_band.py` | runs steps 1-3 with `--band alpha`; accepts `--mode` |
 | Tables S1-S2 | `tables_S1_S2_anova.py` | needs `01_compute_pe.py --mode published` first |
 | Table S3 | `table_S3_cbpt.py` | needs the same, plus `electrodes_tsv` in `config/paths.yaml`; the full sweep (N up to 200,000, k = 2-4) takes a while |
-| Figs. S4-S6 | not yet included | resting-state PE of the Dortmund cohort |
+| Figs. S4-S6 | same code as for Fig.~2 in main manuscript | resting-state PE of the Dortmund cohort |
 | Figs. S7-S8 | `figS7_S8_psd.py` | Dortmund cohort, first 180 s |
 | Table S4 | - | clinical metadata of the stroke dataset |
 
