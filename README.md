@@ -1,5 +1,7 @@
 # StrokePE
 
+[![DOI](https://zenodo.org/badge/1429544572.svg)](https://doi.org/10.5281/zenodo.23559636)
+
 Code for
 
 > A. Bose, P. Gupta, K. Vemuri, D. Das, D. Ghosh, S. K. Dana, S. Saha, and C. Hens,
