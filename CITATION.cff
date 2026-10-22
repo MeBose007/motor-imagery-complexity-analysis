@@ -22,29 +22,37 @@ authors:
   - family-names: Bose
     given-names: Aditi
     affiliation: "Center for Computational Natural Sciences and Bioinformatics, International Institute of Information Technology, Hyderabad, India"
+    orcid: "https://orcid.org/0000-0002-3036-8223"
   - family-names: Gupta
     given-names: Pragati
     affiliation: "Biomedical Research Center, International Institute of Information Technology, Hyderabad, India"
+    orcid: "https://orcid.org/0009-0009-7213-0799"
   - family-names: Vemuri
     given-names: Kavita
     affiliation: "Biomedical Research Center, International Institute of Information Technology, Hyderabad, India"
+    orcid: "https://orcid.org/0000-0003-4423-3896"
   - family-names: Das
     given-names: Dhiman
     affiliation: "Physics and Applied Mathematics Unit, Indian Statistical Institute, Kolkata, India"
+    orcid: "https://orcid.org/0009-0001-3743-4019"
   - family-names: Ghosh
     given-names: Dibakar
     affiliation: "Physics and Applied Mathematics Unit, Indian Statistical Institute, Kolkata, India"
+    orcid: "https://orcid.org/0000-0003-4832-5210"
   - family-names: Dana
     given-names: Syamal Kumar
     affiliation: "Division of Dynamics, Lodz University of Technology, Lodz, Poland; Centre for Mathematical Biology and Ecology, Department of Mathematics, Jadavpur University, Kolkata, India"
+    orcid: "https://orcid.org/0000-0003-4165-3852"
   - family-names: Saha
     given-names: Suman
     affiliation: "School of Electronics Engineering, Vellore Institute of Technology, Chennai, India"
+    orcid: "https://orcid.org/0000-0002-2601-3243"
     email: ecesuman06@gmail.com
   - family-names: Hens
     given-names: Chittaranjan
     affiliation: "Center for Computational Natural Sciences and Bioinformatics; Biomedical Research Center, International Institute of Information Technology, Hyderabad, India"
 preferred-citation:
+    orcid: "https://orcid.org/0000-0003-1971-089X"
   type: article
   title: "Ordinal pattern of brain electrical activity as a marker of stroke-induced alterations in motor imagery task"
   journal: Chaos
