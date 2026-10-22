@@ -1,0 +1,31 @@
+# The 25 channels common to all three datasets (Fig. S1), in the order used in Fig. 3.
+canonical: [Fp1, Fp2, Fz, F3, F4, F7, F8, FCz, FC3, FC4, FT7, FT8, Cz, C3, C4,
+            CP3, CP4, TP7, TP8, Pz, P3, P4, Oz, O1, O2]
+
+# Stroke CSV: zero-based column indices removed before analysis (T3, T4, CPz, T5, T6).
+# The loader then checks that exactly the 25 canonical channels remain (matched by name).
+stroke_drop_columns: [15, 16, 17, 25, 26]
+
+# PhysioNet EDF: zero-based signal index of each channel (standard 64-channel order).
+eo_mi_index: {FC3: 1, FCz: 3, FC4: 5, C3: 8, Cz: 10, C4: 12, CP3: 15, CP4: 19, Fp1: 21,
+              Fp2: 23, F7: 29, F3: 31, Fz: 33, F4: 35, F8: 37, FT7: 38, FT8: 39, TP7: 44,
+              TP8: 45, P3: 48, Pz: 50, P4: 52, O1: 60, Oz: 61, O2: 62}
+
+# OpenNeuro SRM .set: zero-based channel index (BioSemi 64-channel order).
+ec_rs_index: {Fp1: 0, F3: 4, F7: 6, FT7: 7, FC3: 9, C3: 12, TP7: 15, CP3: 17, P3: 20,
+              O1: 26, Oz: 28, Pz: 30, Fp2: 33, Fz: 37, F4: 39, F8: 41, FT8: 42, FC4: 44,
+              FCz: 46, Cz: 47, C4: 49, TP8: 52, CP4: 54, P4: 57, O2: 63}
+
+# Regions used in Table S2.
+regions:
+  Frontal: [Fp1, Fp2, F3, F4, Fz, F7, F8]
+  Frontocentral: [FC3, FC4, FCz, FT7, FT8]
+  Central: [C3, C4, Cz]
+  Parietal: [P3, P4, Pz]
+  Occipital: [O1, O2, Oz]
+  Parietal-central: [CP3, CP4]
+  Temporal: [TP7, TP8]
+
+# Figs. S7-S8: channels shown, in panel order (left column, right column).
+psd_left:  [Fp1, Fp2, F7, F3, F4, F8, C3, C4, P3, P4]
+psd_right: [O1, O2, FT7, FT8, FC3, FC4, TP7, TP8, CP3, CP4]

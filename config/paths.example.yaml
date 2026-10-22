@@ -1,0 +1,8 @@
+# Copy this file to config/paths.yaml and edit. Relative paths are resolved
+# relative to this config folder.
+stroke_dir: ../data/stroke            # preprocessed stroke CSVs (see data/README.md)
+eo_mi_dir: ../data/eo_mi              # preprocessed PhysioNet EDFs
+ec_rs_dir: ../data/ec_rs              # OpenNeuro ds003775 cleaned-epoch .set files
+dortmund_dir: ../data/dortmund        # OpenNeuro ds005385 EDFs (Figs. S7-S8 only)
+electrodes_tsv: ../data/stroke/task-motor-imagery_electrodes.tsv   # public BIDS file (Table S3)
+results_dir: ../results

@@ -1,0 +1,43 @@
+pe:
+  mu: 5          # embedding dimension
+  tau: 1         # embedding delay
+
+stroke:
+  fs: 500
+  trial_samples: 4000     # 8 s per trial: 2 s cue, 4 s motor imagery, 2 s rest
+  mi_start: 1000          # motor-imagery window = samples 1000-2999 of each trial (4 s)
+  mi_stop: 3000
+  trials_expected: 40     # alternating left/right, starting with left (trial 1 = L-MIT)
+
+eo_mi:
+  fs: 160
+  duration_s: 80
+
+ec_rs:
+  fs: 1024
+  duration_s: 80
+
+published_mode:
+  n_blocks: 20            # healthy recordings split into 20 equal blocks (4 s each)
+
+bands:
+  alpha: [8.0, 13.0]      # Fig. S3
+  filter_order: 4         # Butterworth, applied forwards and backwards (filtfilt)
+
+tac:
+  window_s: 1.0
+  synthetic_fs: 1300
+  sine_hz: 1.0
+  sine_amplitude: 0.002
+  seed: 2026
+
+cbpt:
+  alpha_form: 0.05        # cluster-forming threshold (two-sided), as in Table S3
+  n_perm: [10000, 50000, 200000]
+  k_neighbors: [2, 3, 4]
+  seeds: {minor-severe: 1, minor-EO: 2, severe-EO: 3, EO-EC: 4, minor-EC: 5, severe-EC: 6}
+
+psd:
+  dortmund_fs: 1000
+  duration_s: 180
+  nperseg: 1024

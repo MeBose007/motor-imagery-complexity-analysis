@@ -1,0 +1,42 @@
+# Subject lists and group assignments used in Bose et al., Chaos 36, 063101 (2026).
+# Taken from the authors' final analysis scripts; they reproduce the demographics in Table I.
+
+stroke:
+  # Figshare dataset (Liu et al., Sci. Data 11, 131, 2024). 36 of 50 patients retained
+  # after quality screening (Sec. II A). Table S4 numbers these 36 patients 1-36 in this order.
+  ids: [sub-01, sub-02, sub-03, sub-06, sub-07, sub-08, sub-09, sub-10, sub-11, sub-12,
+        sub-15, sub-16, sub-17, sub-19, sub-20, sub-21, sub-22, sub-23, sub-25, sub-26,
+        sub-27, sub-29, sub-30, sub-31, sub-32, sub-34, sub-35, sub-36, sub-37, sub-38,
+        sub-39, sub-40, sub-41, sub-44, sub-45, sub-46]
+  file_pattern: "{id}_task-motor-imagery_eeg_cleaned_EOG_avgref_interp_preprocessed_final_channels_as_columns.csv"
+  severity:
+    minor:  [sub-02, sub-03, sub-06, sub-07, sub-08, sub-10, sub-12, sub-17, sub-20,
+             sub-21, sub-27, sub-31, sub-32, sub-34, sub-35, sub-38, sub-44, sub-46]
+    severe: [sub-01, sub-09, sub-11, sub-15, sub-16, sub-19, sub-22, sub-23, sub-25,
+             sub-26, sub-29, sub-30, sub-36, sub-37, sub-39, sub-40, sub-41, sub-45]
+  lesion_side:
+    # LHA / RHA = left / right hemisphere affected (all LHA patients have right-sided
+    # paralysis in Table S4, all RHA patients left-sided).
+    LHA: [sub-01, sub-07, sub-09, sub-12, sub-16, sub-20, sub-27, sub-29, sub-31, sub-32,
+          sub-38, sub-39, sub-41, sub-45, sub-46]
+    RHA: [sub-02, sub-03, sub-06, sub-08, sub-10, sub-11, sub-15, sub-17, sub-19, sub-21,
+          sub-22, sub-23, sub-25, sub-26, sub-30, sub-34, sub-35, sub-36, sub-37, sub-40,
+          sub-44]
+
+eo_mi:
+  # PhysioNet EEG Motor Movement/Imagery Database, run R08 (imagined left/right fist).
+  ids: [S017, S022, S028, S030, S033, S036, S037, S041, S051, S056, S059, S063, S068,
+        S071, S089, S090, S099, S102]
+  file_pattern: "{id}R08_avgref_interp_preprocessed_final.edf"
+
+ec_rs:
+  # OpenNeuro ds003775 (SRM resting-state EEG), session t1, eyes closed, cleaned epochs.
+  ids: [sub-003, sub-020, sub-021, sub-026, sub-033, sub-048, sub-054, sub-061, sub-070,
+        sub-071, sub-086, sub-087, sub-096, sub-097, sub-098, sub-099, sub-104, sub-111]
+  file_pattern: "{id}_ses-t1_task-resteyesc_desc-epochs_eeg.set"
+
+dortmund:
+  # OpenNeuro ds005385 (Dortmund Vital Study), pre-task resting state, used for Figs. S7-S8.
+  ids: [sub-002, sub-014, sub-017, sub-020, sub-022, sub-028, sub-034, sub-038, sub-039,
+        sub-040, sub-041, sub-047, sub-048, sub-055, sub-059, sub-061, sub-064, sub-068]
+  file_pattern: "{id}_ses-1_task-{task}_acq-pre_eeg.edf"   # task: EyesClosed | EyesOpen
