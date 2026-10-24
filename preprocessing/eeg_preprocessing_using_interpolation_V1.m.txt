@@ -1,0 +1,127 @@
+clear; close all; clc;
+eeglab;
+
+% -------------------------------------------------------
+% Configuration
+% -------------------------------------------------------
+DATA_DIR    = 'E:\EEG_Healthy_MI_physionet';
+CHAN_LOCS   = 'E:\EEG_Healthy_MI_physionet\Standard-10-10-Cap64.locs';
+OUT_DIR     = fullfile(DATA_DIR, 'preprocessed_avgref_interp_healthy_aged_matched');
+
+if ~exist(OUT_DIR, 'dir'), mkdir(OUT_DIR); end
+
+% ICLabel rejection thresholds [min max] — NaN = keep
+IC_REJECT = [ NaN  NaN;   % Brain
+              0.90  1.0;  % Muscle
+              0.90  1.0;  % Eye
+              NaN  NaN;   % Heart
+              NaN  NaN;   % Line Noise
+              NaN  NaN;   % Channel Noise
+              NaN  NaN ]; % Other
+
+% -------------------------------------------------------
+% Discover input files
+% -------------------------------------------------------
+edf_list = dir(fullfile(DATA_DIR, '*.edf'));
+fprintf('EDF files found: %d\n\n', numel(edf_list));
+
+% -------------------------------------------------------
+% Per-subject pipeline
+% -------------------------------------------------------
+for k = 1:numel(edf_list)
+
+    src = fullfile(edf_list(k).folder, edf_list(k).name);
+    [~, stem, ~] = fileparts(edf_list(k).name);
+
+    fprintf('[%d/%d] %s\n', k, numel(edf_list), stem);
+
+    try
+        % --- Load ---
+        EEG = pop_biosig(src, 'bdfeventmode', 0, 'importevent', 'off');
+        EEG.setname = edf_list(k).name;
+        EEG = eeg_checkset(EEG);
+
+        % --- Channel locations ---
+        EEG = pop_chanedit(EEG, 'load', {CHAN_LOCS, 'filetype', 'autodetect'});
+        EEG = eeg_checkset(EEG);
+
+        % --- Bandpass 1–30 Hz ---
+        EEG = pop_eegfiltnew(EEG, 'locutoff', 1, 'hicutoff', 30);
+        EEG = eeg_checkset(EEG);
+
+        % --- Snapshot of full channel set before rejection ---
+        chanlocs_orig  = EEG.chanlocs;
+        labels_orig    = {EEG.chanlocs.labels};
+
+        % --- Reject bad channels (flat / high-noise / line-noise) ---
+        EEG = pop_clean_rawdata(EEG, ...
+            'FlatlineCriterion',   5,         ...
+            'ChannelCriterion',    0.8,       ...
+            'LineNoiseCriterion',  4,         ...
+            'Highpass',            'off',     ...
+            'BurstCriterion',      20,        ...
+            'WindowCriterion',     'off',     ...
+            'BurstRejection',      'off',     ...
+            'Distance',            'Euclidian');
+        EEG = eeg_checkset(EEG);
+
+        % --- Log removed channels ---
+        bad_ch = setdiff(labels_orig, {EEG.chanlocs.labels});
+        if ~isempty(bad_ch)
+            log_path = fullfile(OUT_DIR, [stem '_bad_channels.txt']);
+            fid = fopen(log_path, 'w');
+            fprintf(fid, '%s\n', bad_ch{:});
+            fclose(fid);
+            fprintf('  Removed channels (%d): %s\n', numel(bad_ch), strjoin(bad_ch, ', '));
+        end
+
+        % --- ICA decomposition ---
+        EEG = pop_runica(EEG, ...
+            'icatype',  'runica', ...
+            'extended',  1,       ...
+            'rndreset', 'yes',    ...
+            'interrupt', 'on');
+        EEG = eeg_checkset(EEG);
+
+        % --- Label components ---
+        EEG = pop_iclabel(EEG, 'default');
+
+        % --- Flag and subtract artefact ICs ---
+        EEG = pop_icflag(EEG, IC_REJECT);
+        bad_ic = find(EEG.reject.gcompreject);
+
+        if ~isempty(bad_ic)
+            fprintf('  Removing ICs (%d): %s\n', numel(bad_ic), num2str(bad_ic));
+            EEG = pop_subcomp(EEG, bad_ic, 0);
+        end
+        EEG = eeg_checkset(EEG);
+
+        % --- Average reference ---
+        EEG = pop_reref(EEG, []);
+        EEG = eeg_checkset(EEG);
+
+        % --- Spherical interpolation of removed channels ---
+        EEG = pop_interp(EEG, chanlocs_orig, 'spherical');
+
+        % --- Enforce average-reference metadata ---
+        EEG.ref = 'averef';
+        [EEG.chanlocs.ref] = deal('average');
+        EEG = eeg_checkset(EEG);
+
+        % --- Save ---
+        out_name = [stem '_avgref_interp_preprocessed'];
+
+        EEG = pop_saveset(EEG, ...
+            'filename', [out_name '.set'], ...
+            'filepath', OUT_DIR);
+
+        pop_writeeeg(EEG, fullfile(OUT_DIR, [out_name '.edf']), 'TYPE', 'EDF');
+
+        fprintf('  Done -> %s\n\n', out_name);
+
+    catch err
+        fprintf('  FAILED: %s\n  %s\n\n', stem, err.message);
+    end
+end
+
+fprintf('Batch complete. Output: %s\n', OUT_DIR);
