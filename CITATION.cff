@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this code, please cite the article in preferred-citation."
 title: "StrokePE: permutation entropy analysis of stroke motor-imagery EEG"
 type: software
-version: 1.0.0
+version: 1.1.0
 license: MIT
 doi: 10.5281/zenodo.23559636
 repository-code: "https://github.com/USERNAME/StrokePE"
